@@ -14,8 +14,9 @@
     <h2>{{ task.detailed_description }}</h2>
     <h3>{{ task.get_status_display }}</h3>
     <p>{{ task.create_until|date:"Y-m-d" }}</p>
+
 <p>
-    <a href='/'; style="text-align: center; color: goldenrodn;">Back home ↩️︎</a>
+    <a href='{% url "home" %}'; style="text-align: center; color: goldenrodn;">Back home ↩️︎</a>
 </p>
 </body>
 </html>
