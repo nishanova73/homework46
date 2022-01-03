@@ -12,13 +12,13 @@
 <body>
 <h1>Create Task</h1>
 
-<form action="" method="post">
+<form method="post">
     {% csrf_token %}
     <label>Description:</label><br/>
     <input type="text" name="description"/><br/>
 
     <label>Detailed description:</label><br/>
-    <textarea type="text" name="detailed_description"/><br/>
+    <textarea name="detailed_description"></textarea><br/>
 
     <label>Status:</label><br/>
     <select name="status">
@@ -33,7 +33,7 @@
     <input type="submit" value="Send"/>
 </form>
 <p>
-    <a href='/'; style="text-align: center; color: goldenrodn;">Back home ↩️︎</a>
+    <a href='{% url "home" %}'; style="text-align: center; color: goldenrodn;">Back home ↩️︎</a>
 </p>
 </body>
 </html>
