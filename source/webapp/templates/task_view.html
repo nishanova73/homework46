@@ -11,8 +11,8 @@
 </head>
 <body>
     <h1>{{ task.description }}</h1>
-    <h3>{{ task.status }}</h3>
-    <p>{{ task.create_until }}</p>
+    <h3>{{ task.get_status_display }}</h3>
+    <p>{{ task.create_until|date:"Y-m-d" }}</p>
 <p>
     <a href='/'; style="text-align: center; color: goldenrodn;">Back home ↩️︎</a>
 </p>
