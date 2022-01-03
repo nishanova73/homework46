@@ -11,11 +11,11 @@
 </head>
 <body>
     <p>
-        <a href='create_task/'; style="text-align: center; color: goldenrodn;">Create task🍀📌</a>
+        <a href='{% url "task_add" %}'; style="text-align: center; color: goldenrodn;">Create task🍀📌</a>
     </p>
     {% for task in tasks %}
         <h3>{{ task.description }}</h3>
-        <p><a href="/task_view?pk={{ task.pk }}">Show task🔓</a></p>
+        <p><a href='{% url "task_view" task.pk%}'>Show task🔓</a></p>
     {% endfor %}
     <p>
         <a href='/'; style="text-align: center; color: goldenrodn;">Back home ↩️︎</a>
