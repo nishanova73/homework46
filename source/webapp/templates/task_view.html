@@ -11,6 +11,7 @@
 </head>
 <body>
     <h1>{{ task.description }}</h1>
+    <h2>{{ task.detailed_description }}</h2>
     <h3>{{ task.get_status_display }}</h3>
     <p>{{ task.create_until|date:"Y-m-d" }}</p>
 <p>
