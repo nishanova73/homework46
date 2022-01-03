@@ -1,0 +1,29 @@
+[
+{
+    "model": "webapp.task",
+    "pk": 1,
+    "fields": {
+        "description": "Cook cookies and lemon tart",
+        "create_until": "2022-01-03",
+        "status": "in_progress"
+    }
+},
+{
+    "model": "webapp.task",
+    "pk": 2,
+    "fields": {
+        "description": "do homework",
+        "create_until": "2022-01-03",
+        "status": "in progress"
+    }
+},
+{
+    "model": "webapp.task",
+    "pk": 3,
+    "fields": {
+        "description": "solve tasks",
+        "create_until": "2022-01-03",
+        "status": "new"
+    }
+}
+]
