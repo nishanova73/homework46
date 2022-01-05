@@ -1,0 +1,18 @@
+{% csrf_token %}
+    <label>Description:</label><br/>
+    <input type="text" name="description" value="{{ task.description }}"/><br/>
+
+    <label>Detailed description:</label><br/>
+    <textarea name="detailed_description" >{{ task.detailed_description }}</textarea><br/>
+
+    <label>Status:</label><br/>
+    <select name="status">
+        {% for choice in status_choices %}
+        <option value="{{ choice.0}}">{{ choice.1 }}</option>
+        {% endfor %}
+    </select><br/>
+
+    <label>Create until:</label><br/>
+    <input type="date" name="create_until" value="{{ task.create_until }}"/><br/>
+    <br/>
+     <input type="submit" value="{{ button_text }}"/>

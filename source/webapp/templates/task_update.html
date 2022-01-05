@@ -6,28 +6,10 @@
     </li>
 {% endblock %}
 {% block content %}
-<h1>Update Task</h1>
+<h1>Edit Task</h1>
 
 <form method="post">
-    {% csrf_token %}
-    <label>Description:</label><br/>
-    <input type="text" name="description" value="{{ task.description }}"/><br/>
-
-    <label>Detailed description:</label><br/>
-    <textarea name="detailed_description" >{{ task.detailed_description }}</textarea><br/>
-
-    <label>Status:</label><br/>
-    <select name="status">
-<!--        {% for choice in status_choices %}-->
-<!--        <option>{{ task.status }}</option>-->
-<!--        {% endfor %}-->
-        <option value="{{ task.status }}">{{ task.status }}</option>
-    </select><br/>
-
-    <label>Create until:</label><br/>
-    <input type="date" name="create_until" value="{{ task.create_until }}"/><br/>
-    <br/>
-    <input type="submit" value="Update"/>
+    {% include "partial/form.html" with button_text="Edit" %}
 </form>
 </body>
 </html>

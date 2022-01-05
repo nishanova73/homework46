@@ -5,24 +5,7 @@
 <h1>Create Task</h1>
 
 <form method="post">
-    {% csrf_token %}
-    <label>Description:</label><br/>
-    <input type="text" name="description"/><br/>
-
-    <label>Detailed description:</label><br/>
-    <textarea name="detailed_description"></textarea><br/>
-
-    <label>Status:</label><br/>
-    <select name="status">
-        {% for choice in status_choices %}
-        <option value="{{choice.0}}">{{choice.1}}</option>
-        {% endfor %}
-    </select><br/>
-
-    <label>Create until:</label><br/>
-    <input type="date" name="create_until"/><br/>
-    <br/>
-    <input type="submit" value="Send"/>
+    {% include "partial/form.html" with button_text="Create" %}
 </form>
 </body>
 </html>
