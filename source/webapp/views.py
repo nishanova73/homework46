@@ -46,3 +46,12 @@ def task_update_view(request, pk):
             task.create_until = None
         task.save()
         return redirect("task_view", pk=task.pk)
+
+
+def task_delete_view(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == 'GET':
+        return render(request, "task_delete.html", {"task":task})
+    else:
+        task.delete()
+        return redirect("home")
