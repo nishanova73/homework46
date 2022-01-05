@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponseNotFound, Http404
 from django.urls import reverse
 
 # Create your views here.
@@ -26,13 +26,26 @@ def create_task_view(request):
                                        detailed_description = detailed_description,
                                        status=status,
                                        create_until=create_until)
-        # context = {"task":new_task}
-        # url = reverse("task_view", kwargs={"pk":new_task.pk})
-        # return HttpResponseRedirect(url)
         return redirect("task_view", pk=new_task.pk)
 
 def task_view(request, pk):
-    # pk = request.GET.get('pk')
-    task = Task.objects.get(pk=pk)
-    context = {"task": task}
-    return render(request, 'task_view.html', context)
+   task = get_object_or_404(Task, pk=pk)
+   context = {"task": task}
+   return render(request, 'task_view.html', context)
+
+# def task_update_view(request, pk):
+#     task = get_object_or_404(Task, pk=pk)
+#     if request.method == 'GET':
+#         return render(request, 'task_update.html', {"task":task})
+#     else:
+#         task.description = request.POST.get('description')
+#         task.status = request.POST.get('status')
+#         task.create_until = request.POST.get('create_until')
+#         task.detailed_description = request.POST.get('detailed_description')
+#         if create_until == '':
+#             create_until = None
+#         new_task = Task.objects.create(description=description,
+#                                        detailed_description = detailed_description,
+#                                        status=status,
+#                                        create_until=create_until)
+#         return redirect("task_view", pk=new_task.pk)
