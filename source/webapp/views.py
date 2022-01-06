@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseNotFound, Http404
 from django.urls import reverse
-
-# Create your views here.
 from webapp.models import Task, STATUS_CHOICES
+from webapp.utils import article_validate
+
 
 def main_view(request):
     return render(request, 'main.html')
 
+
 def tasks_view(request):
     tasks = Task.objects.order_by("status")
     return render(request, 'tasks.html', {'tasks':tasks})
+
 
 def create_task_view(request):
     if request.method == 'GET':
@@ -20,13 +22,16 @@ def create_task_view(request):
         status = request.POST.get('status')
         create_until = request.POST.get('create_until')
         detailed_description = request.POST.get('detailed_description')
-        if create_until == '':
-            create_until = None
-        new_task = Task.objects.create(description=description,
-                                       detailed_description = detailed_description,
-                                       status=status,
-                                       create_until=create_until)
+        new_task = Task(description=description,
+                        status=status,
+                        create_until=create_until,
+                        detailed_description=detailed_description,)
+        errors = article_validate(description, create_until, detailed_description, status)
+        if errors:
+            return render(request, "create_task.html", {"errors":errors,"task":new_task})
+        new_task.save()
         return redirect("task_view", pk=new_task.pk)
+
 
 def task_view(request, pk):
    task = get_object_or_404(Task, pk=pk)
@@ -44,8 +49,11 @@ def task_update_view(request, pk):
         task.detailed_description = request.POST.get('detailed_description')
         if task.create_until == '':
             task.create_until = None
+        errors = article_validate(task.description, task.status, task.create_until, task.detailed_description)
+        if errors:
+            return render(request, 'task_update.html', {"status_choices": STATUS_CHOICES}, {"errors": errors, "task": task})
         task.save()
-        return redirect("task_view", pk=task.pk)
+        return redirect("task_view" , pk=task.pk)
 
 
 def task_delete_view(request, pk):

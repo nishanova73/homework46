@@ -1,18 +1,38 @@
 {% csrf_token %}
+
     <label>Description:</label><br/>
-    <input type="text" name="description" value="{{ task.description }}"/><br/>
+{% if errors.description %}
+    <input class="border border-danger border-3" type="text" name="description" value="{{ task.description }}"/>
+    <p class="text-danger">{{errors.description}}</p>
+{% else %}
+    <input type="text" name="description" value="{{ task.description }}"/>
+{% endif %}
+<br/>
 
     <label>Detailed description:</label><br/>
-    <textarea name="detailed_description" >{{ task.detailed_description }}</textarea><br/>
+{% if errors.detailed_description %}
+    <textarea class="border border-danger border-3" type="text" name="detailed_description" placeholder="Enter the detailed description of the task" >{{ task.detailed_description }}</textarea>
+    <p class="text-danger">{{errors.detailed_description}}</p>
+{% else %}
+    <textarea placeholder="Enter the detailed description of the task" type="text" name="detailed_description" >{{ task.detailed_description }}</textarea>
+{% endif %}
+<br/>
 
     <label>Status:</label><br/>
     <select name="status">
         {% for choice in status_choices %}
         <option value="{{ choice.0}}">{{ choice.1 }}</option>
         {% endfor %}
-    </select><br/>
+    </select>
+<br/>
 
     <label>Create until:</label><br/>
-    <input type="date" name="create_until" value="{{ task.create_until }}"/><br/>
+{% if errors.create_until %}
+    <input class="border border-danger border-3" type="date" name="create_until" value="{{ task.create_until }}"/><br/>
+    <p class="text-danger">{{errors.create_until}}</p>
     <br/>
-     <input type="submit" value="{{ button_text }}"/>
+{% else %}
+    <input type="date" name="create_until" value="{{ task.create_until }}"/><br/>
+{% endif %}
+<br/>
+<input type="submit" value="{{ button_text }}" />
