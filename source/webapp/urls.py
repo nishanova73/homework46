@@ -4,7 +4,7 @@ from webapp.views import (main_view,
                           create_task_view,
                           task_view,
                           task_update_view,
-                          task_delete_view)
+                          task_delete_view,)
 
 urlpatterns = [
     path('', main_view, name="main"),
