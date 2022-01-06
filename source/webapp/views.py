@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseNotFound, Http404
 from django.urls import reverse
+from webapp.forms import TaskForm
 from webapp.models import Task, STATUS_CHOICES
 from webapp.utils import article_validate
 
@@ -16,21 +17,21 @@ def tasks_view(request):
 
 def create_task_view(request):
     if request.method == 'GET':
-        return render(request, 'create_task.html', {"status_choices":STATUS_CHOICES})
+        form = TaskForm()
+        return render(request, 'create_task.html', {"status_choices":STATUS_CHOICES, "form":form})
     else:
-        description = request.POST.get('description')
-        status = request.POST.get('status')
-        create_until = request.POST.get('create_until')
-        detailed_description = request.POST.get('detailed_description')
-        new_task = Task(description=description,
-                        status=status,
-                        create_until=create_until,
-                        detailed_description=detailed_description,)
-        errors = article_validate(description, create_until, detailed_description, status)
-        if errors:
-            return render(request, "create_task.html", {"errors":errors,"task":new_task})
-        new_task.save()
-        return redirect("task_view", pk=new_task.pk)
+        form = TaskForm(date=request.POST)
+        if form.is_valid():
+            description = form.cleaned_data.get('description')
+            status = form.cleaned_data.get('status')
+            create_until = form.cleaned_data.get('create_until')
+            detailed_description = form.cleaned_data.get('detailed_description')
+            new_task = Task.objects.create(description=description,
+                                           status=status,
+                                           create_until=create_until,
+                                           detailed_description=detailed_description,)
+            return redirect("task_view", pk=new_task.pk)
+        return render(request, "create_task.html", {"form":form})
 
 
 def task_view(request, pk):

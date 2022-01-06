@@ -1,8 +1,12 @@
 from django import forms
+from django.forms import widgets
 
 
 class TaskForm(forms.Form):
     description = forms.CharField(max_length=200, required=True, label="Description")
-    detailed_description = forms.TextField(max_length=3000, required=True, label="Detailed description")
-    status = forms.CharField(max_length=15, required=True, label="Status")
-    create_until = forms.DateField(label="Create until")
+    detailed_description = forms.CharField(max_length=3000, required=True, label="Detailed description",
+                                           widget=widgets.Textarea(attrs={"rows":5 , "cols":50}))
+    status = forms.CharField(max_length=15, required=True, label="Status",)
+                             # widget=widgets.Select)
+    create_until = forms.CharField(label="Create until",
+                                    widget=widgets.SelectDateWidget)

@@ -1,38 +1,32 @@
 {% csrf_token %}
 
-    <label>Description:</label><br/>
-{% if errors.description %}
-    <input class="border border-danger border-3" type="text" name="description" value="{{ task.description }}"/>
-    <p class="text-danger">{{errors.description}}</p>
-{% else %}
-    <input type="text" name="description" value="{{ task.description }}"/>
-{% endif %}
-<br/>
+{% for field in form %}
+    <p><label for="{{ field.id_for_label }}">{{ field.label }}</label></p>
+    {% for errors in field.errors %}</br>
+        <p class="text-danger">{{ error }}</p>
+    {% endfor %}
+    {{field}}
+{% endfor %}</br>
 
-    <label>Detailed description:</label><br/>
-{% if errors.detailed_description %}
-    <textarea class="border border-danger border-3" type="text" name="detailed_description" placeholder="Enter the detailed description of the task" >{{ task.detailed_description }}</textarea>
-    <p class="text-danger">{{errors.detailed_description}}</p>
-{% else %}
-    <textarea placeholder="Enter the detailed description of the task" type="text" name="detailed_description" >{{ task.detailed_description }}</textarea>
-{% endif %}
-<br/>
-
-    <label>Status:</label><br/>
-    <select name="status">
-        {% for choice in status_choices %}
-        <option value="{{ choice.0}}">{{ choice.1 }}</option>
-        {% endfor %}
-    </select>
-<br/>
-
-    <label>Create until:</label><br/>
-{% if errors.create_until %}
-    <input class="border border-danger border-3" type="date" name="create_until" value="{{ task.create_until }}"/><br/>
-    <p class="text-danger">{{errors.create_until}}</p>
-    <br/>
-{% else %}
-    <input type="date" name="create_until" value="{{ task.create_until }}"/><br/>
-{% endif %}
-<br/>
+<!--<p><label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label></p>-->
+<!--{% for errors in form.description.errors %}-->
+<!--    <p class="text-danger">{{ error }}</p>-->
+<!--{% endfor %}-->
+<!--{{form.description}}-->
+<!--<p><label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label></p>-->
+<!--{% for errors in form.status.errors %}-->
+<!--    <p class="text-danger">{{ error }}</p>-->
+<!--{% endfor %}-->
+<!--{{form.status}}-->
+<!--<p><label for="{{ form.detailed_description.id_for_label }}">{{ form.detailed_description.label }}</label></p>-->
+<!--{% for errors in form.detailed_description.errors %}-->
+<!--    <p class="text-danger">{{ error }}</p>-->
+<!--{% endfor %}-->
+<!--{{form.detailed_description}}-->
+<!--<p><label for="{{ form.create_until.id_for_label }}">{{ form.create_until.label }}</label></p>-->
+<!--{% for errors in form.create_until.errors %}-->
+<!--    <p class="text-danger">{{ error }}</p>-->
+<!--{% endfor %}-->
+<!--{{form.create_until}}</br>-->
+</br>
 <input type="submit" value="{{ button_text }}" />
